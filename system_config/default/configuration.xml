@@ -295,7 +295,7 @@
       <Template dnOrder="9">
         <Name dnOrder="0">FreeRTOSConfig.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/default</Path>
-        <Checksum dnOrder="2">C952F6F89E842E609E4C202398C7DCFF</Checksum>
+        <Checksum dnOrder="2">755848009181D8AFD2179AA3B5AF3A39</Checksum>
       </Template>
       <Template dnOrder="10">
         <Name dnOrder="0">drv_usart_static_byte_model.c</Name>
@@ -363,7 +363,7 @@
       <Template dnOrder="23">
         <Name dnOrder="0">system_tasks.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default</Path>
-        <Checksum dnOrder="2">29C3ADF8E7CBAF501B028218E6892990</Checksum>
+        <Checksum dnOrder="2">D3256A1914C8BD69D4B0780B6A422756</Checksum>
       </Template>
       <Template dnOrder="24">
         <Name dnOrder="0">sys_devcon_pic32mx.c</Name>
