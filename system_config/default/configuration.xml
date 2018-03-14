@@ -295,7 +295,7 @@
       <Template dnOrder="9">
         <Name dnOrder="0">FreeRTOSConfig.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/default</Path>
-        <Checksum dnOrder="2">755848009181D8AFD2179AA3B5AF3A39</Checksum>
+        <Checksum dnOrder="2">C952F6F89E842E609E4C202398C7DCFF</Checksum>
       </Template>
       <Template dnOrder="10">
         <Name dnOrder="0">drv_usart_static_byte_model.c</Name>
@@ -306,6 +306,7 @@
         <Name dnOrder="0">system_interrupt.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default</Path>
         <Checksum dnOrder="2">854A2167CF968AA213CA3F0C32E3CDA2</Checksum>
+        <ProjectFileChecksum dnOrder="3">ABEF7567182AA1B60D6E3F3F5F2B8865</ProjectFileChecksum>
       </Template>
       <Template dnOrder="12">
         <Name dnOrder="0">drv_oc_mapping.c</Name>
@@ -321,6 +322,7 @@
         <Name dnOrder="0">drv_usart_static.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default/framework/driver/usart/src</Path>
         <Checksum dnOrder="2">2A97DC0B40FF487A5FF3188233E4F50E</Checksum>
+        <ProjectFileChecksum dnOrder="3">56CF02421309BAD80A95DA4B37166742</ProjectFileChecksum>
       </Template>
       <Template dnOrder="15">
         <Name dnOrder="0">system_init.c</Name>
@@ -363,7 +365,8 @@
       <Template dnOrder="23">
         <Name dnOrder="0">system_tasks.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default</Path>
-        <Checksum dnOrder="2">D3256A1914C8BD69D4B0780B6A422756</Checksum>
+        <Checksum dnOrder="2">BF1DF3B64EB1B1A7B5AEF8BD3EE8E7ED</Checksum>
+        <ProjectFileChecksum dnOrder="3">F0D03EA5CEA52B6274DDCF59DBB84E02</ProjectFileChecksum>
       </Template>
       <Template dnOrder="24">
         <Name dnOrder="0">sys_devcon_pic32mx.c</Name>

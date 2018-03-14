@@ -55,6 +55,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "system_config.h"
 #include "system_definitions.h"
 #include "app.h"
+#include "uart_thread.h"
 
 
 // *****************************************************************************
@@ -69,6 +70,9 @@ static void _SYS_Tasks ( void );
  
  
 static void _APP_Tasks(void);
+
+
+static void _UART_Tasks(void);
 
 
 // *****************************************************************************
@@ -97,8 +101,14 @@ void SYS_Tasks ( void )
     /* Create OS Thread for APP Tasks. */
     xTaskCreate((TaskFunction_t) _APP_Tasks,
                 "APP Tasks",
-                1024, NULL, 1, NULL);
+                4096, NULL, 1, NULL);
 
+ 
+ 
+    /* Create OS Thread for UART Tasks. */
+    xTaskCreate((TaskFunction_t) _UART_Tasks,
+                "UART Tasks",
+                4096, NULL, 1, NULL);
     /**************
      * Start RTOS * 
      **************/
@@ -148,6 +158,24 @@ static void _APP_Tasks(void)
     }
 }
 
+ 
+ 
+
+/*******************************************************************************
+  Function:
+    void _UART_Tasks ( void )
+
+  Summary:
+    Maintains UART queues.
+*/
+
+static void _UART_Tasks(void)
+{
+    while(1)
+    {
+        UART_Tasks();
+    }
+}
 
 /*******************************************************************************
  End of File
