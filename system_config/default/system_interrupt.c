@@ -101,21 +101,6 @@ void IntHandlerDrvUsartInstance0(void)
         }
     }
 }
- 
- 
- 
-
- 
-
- 
-
- 
-
- 
-
- 
- 
- 
 
 void IntHandlerDrvTmrInstance0(void)
 {
@@ -128,8 +113,7 @@ void IntHandlerDrvTmrInstance1(void)
 void IntHandlerDrvTmrInstance2(void)
 {
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_4);
-}
- 
+} 
 /*******************************************************************************
  End of File
 */

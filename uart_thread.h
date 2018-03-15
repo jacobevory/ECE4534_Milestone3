@@ -2,7 +2,6 @@
 #include "queue.h"
 #include <stdbool.h>
 #include "system_definitions.h"
-#include "system/common/sys_common.h"
 #include "debug.h"
 
 typedef struct
@@ -28,6 +27,6 @@ char uart_receive(void);
 char uart_receive_from_transmit_queue(void);
 void uart_send_to_receive_queue(char data);
 void initializeUART(void);
-void transmitUARTstring(const char *string);
+void transmitUARTstring(char *string);
 void transmitUARTchar(char);
 void UART_Tasks(void);

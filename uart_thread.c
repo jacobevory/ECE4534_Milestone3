@@ -25,8 +25,7 @@ char uart_receive(void){
 }
 
 char uart_receive_from_transmit_queue(void){
-    BaseType_t pxHigerPriorityTaskWoken=pdFalse;
-    if( xQueueReceiveFromISR( uart.utQueue, &uart.transmit_char, &pxHigerPriorityTaskWoken ) );
+    if( xQueueReceiveFromISR( uart.utQueue, &uart.transmit_char, pdFALSE ) );
     return uart.transmit_char;
 }
 
@@ -38,14 +37,16 @@ void initializeUART(void){
     uart_buffer_create();
 }
 
-void transmitUARTstring(const char *string){
-    const char *stringPointer;
+void transmitUARTstring(char *string){
+    char *stringPointer;
     stringPointer = string;
-    while(*stringPointer == '\0'){
-        uart_send(*stringPointer);
-        stringPointer++;
+    while(*stringPointer != '\0'){
+            uart.transmit_char = *stringPointer;
+            xQueueSendToBack( uart.utQueue, ( void * ) &uart.transmit_char, (BaseType_t) 0);
+            stringPointer++;
             if(*stringPointer == '\0'){
                 stringPointer = string;
+                SYS_INT_SourceEnable(INT_SOURCE_USART_1_TRANSMIT);
                 return;
             }
     }
@@ -59,13 +60,10 @@ void transmitUARTchar(char data){
 
 void UART_Tasks(void){
     initializeUART();
-    //PLIB_USART_TransmitterByteSend(USART_ID_1, 'G');
-    char temp;
+    //char *temp = "Hello, this is a test. My name is Jacob and I'm a baller ass bitch." + 0;
+    //transmitUARTstring(temp);
     for(;;){
-        uart_send(temp++);
-        //uart_send('A');
-        //SYS_INT_SourceEnable(INT_SOURCE_USART_1_TRANSMIT);
-        //uart.transmit_char = UART_TRANSMIT_MESSAGE->data;
+        //uart_send(temp++);
         
     }
 }
