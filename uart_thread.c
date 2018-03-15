@@ -56,6 +56,7 @@ void transmitUARTchar(char data){
 
 
 void UART_Tasks(void){
+    transmitUARTstring("Startup Success\0");
     /*
     uart.ptr = "Test#4 yes please: ";
     transmitUARTstring(uart.ptr);

@@ -63,6 +63,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "app.h"
 #include "system_definitions.h"
 #include "uart_thread.h"
+#include "encoder_thread.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -104,6 +105,8 @@ void IntHandlerDrvUsartInstance0(void)
 
 void IntHandlerDrvTmrInstance0(void)
 {
+    bool encoderReadyBit = true;
+    xQueueSendToBackFromISR( encoder.encoderReady, ( void * ) &encoderReadyBit, (TickType_t) 0);
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_2);
 }
 void IntHandlerDrvTmrInstance1(void)
