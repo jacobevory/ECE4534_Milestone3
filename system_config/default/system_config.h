@@ -227,9 +227,6 @@ extern "C" {
 /*** Functions for BSP_SWITCH_2 pin ***/
 #define BSP_SWITCH_2StateGet() PLIB_PORTS_PinGet(PORTS_ID_0, PORT_CHANNEL_D, PORTS_BIT_POS_7)
 
-
-/*** Application Instance 0 Configuration ***/
-
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

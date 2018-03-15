@@ -55,8 +55,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "system_config.h"
 #include "system_definitions.h"
 #include "app.h"
-#include "uart_thread.h"
-
+#include "data_queue.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -73,6 +72,12 @@ static void _APP_Tasks(void);
 
 
 static void _UART_Tasks(void);
+
+
+static void _Encoder_Tasks(void);
+
+
+static void _Data_Tasks(void);
 
 
 // *****************************************************************************
@@ -98,17 +103,25 @@ void SYS_Tasks ( void )
 
  
  
-    /* Create OS Thread for APP Tasks. */
-    xTaskCreate((TaskFunction_t) _APP_Tasks,
-                "APP Tasks",
-                4096, NULL, 1, NULL);
-
- 
- 
     /* Create OS Thread for UART Tasks. */
     xTaskCreate((TaskFunction_t) _UART_Tasks,
                 "UART Tasks",
                 4096, NULL, 1, NULL);
+ 
+    
+ 
+    /* Create OS Thread for Encoder Tasks. */
+    xTaskCreate((TaskFunction_t) _Encoder_Tasks,
+                "Encoder Tasks",
+                1024, NULL, 1, NULL);
+    
+    
+    
+        /* Create OS Thread for Data Tasks. */
+    xTaskCreate((TaskFunction_t) _Data_Tasks,
+                "Data Tasks",
+                4096, NULL, 1, NULL);
+    
     /**************
      * Start RTOS * 
      **************/
@@ -123,7 +136,7 @@ void SYS_Tasks ( void )
   Summary:
     Maintains state machines of system modules.
 */
-static void _SYS_Tasks ( void)
+static void _SYS_Tasks (void)
 {
     while(1)
     {
@@ -177,6 +190,43 @@ static void _UART_Tasks(void)
     }
 }
 
+ 
+ 
+
+/*******************************************************************************
+  Function:
+    void _Encoder_Tasks ( void )
+
+  Summary:
+    Maintains state of encoder counters.
+*/
+
+static void _Encoder_Tasks(void)
+{
+    while(1)
+    {
+        Encoder_Tasks();
+    }
+}
+
+ 
+ 
+
+/*******************************************************************************
+  Function:
+    void _Encoder_Tasks ( void )
+
+  Summary:
+    Maintains state of encoder counters.
+*/
+
+static void _Data_Tasks(void)
+{
+    while(1)
+    {
+        Data_Tasks();
+    }
+}
 /*******************************************************************************
  End of File
  */

@@ -74,16 +74,17 @@ void IntHandlerDrvUsartInstance0(void)
     if(SYS_INT_SourceStatusGet(INT_SOURCE_USART_1_TRANSMIT))
     {
         /* Clear up the interrupt flag */
-        SYS_INT_SourceStatusClear(INT_SOURCE_USART_1_TRANSMIT);
+        
         char UART_TRANSMIT_CHAR;
         int i = 0;
-        while( !xQueueIsQueueEmptyFromISR( uart.utQueue ) & !PLIB_USART_TransmitterBufferIsFull( USART_ID_1 ) & (i < 256) ){
+        while( !xQueueIsQueueEmptyFromISR( uart.utQueue ) & !(PLIB_USART_TransmitterBufferIsFull(USART_ID_1)) & (i < 9) ){
             UART_TRANSMIT_CHAR = uart_receive_from_transmit_queue();
             PLIB_USART_TransmitterByteSend(USART_ID_1, UART_TRANSMIT_CHAR );
             i++;
         }
         
         if (xQueueIsQueueEmptyFromISR( uart.utQueue )) SYS_INT_SourceDisable(INT_SOURCE_USART_1_TRANSMIT);
+        SYS_INT_SourceStatusClear(INT_SOURCE_USART_1_TRANSMIT);
     }
     
     DRV_USART_TasksError(sysObj.drvUsart0);
@@ -93,7 +94,6 @@ void IntHandlerDrvUsartInstance0(void)
 
         /* Clear up the interrupt flag */
         SYS_INT_SourceStatusClear(INT_SOURCE_USART_1_RECEIVE);
-        struct uart_message *UART_RECEIVE_MESSAGE;
         int i = 0;
         while(PLIB_USART_ReceiverDataIsAvailable(USART_ID_1) & (i < 256)){
             uart_send_to_receive_queue(PLIB_USART_ReceiverByteReceive(USART_ID_1));

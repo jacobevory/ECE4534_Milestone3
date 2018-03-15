@@ -48,6 +48,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include "system_config.h"
 #include "system_definitions.h"
+#include "uart_thread.h"
 
 
 // ****************************************************************************
@@ -173,11 +174,11 @@ void SYS_Initialize ( void* data )
 
     /*** Interrupt Service Initialization Code ***/
     SYS_INT_Initialize();
-
+    uart.ready = false;
+    initializeUART();
+    initializeEncoder();
     /* Initialize Middleware */
 
-    /* Initialize the Application */
-    APP_Initialize();
 }
 
 

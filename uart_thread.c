@@ -2,10 +2,8 @@
 #include "uart_thread.h"
 
 void uart_buffer_create (void){
-	 uart.utQueue = xQueueCreate( 1024, sizeof(char));
-     if(!uart.utQueue) PLIB_USART_TransmitterByteSend(USART_ID_1, 'E');
+	 uart.utQueue = xQueueCreate( 256, sizeof(char));
      uart.urQueue = xQueueCreate( 1024, sizeof(char));
-     if(!uart.urQueue) PLIB_USART_TransmitterByteSend(USART_ID_1, 'F');
 }
 
 void uart_send(char data){
@@ -30,7 +28,7 @@ char uart_receive_from_transmit_queue(void){
 }
 
 void uart_send_to_receive_queue(char data){
-	xQueueSendToBackFromISR( uart.urQueue, ( void * ) &data, (BaseType_t) 0);
+	xQueueSendToBackFromISR( uart.urQueue, ( void * ) &data, (TickType_t) 0);
 }
 
 void initializeUART(void){
@@ -42,14 +40,11 @@ void transmitUARTstring(char *string){
     stringPointer = string;
     while(*stringPointer != '\0'){
             uart.transmit_char = *stringPointer;
-            xQueueSendToBack( uart.utQueue, ( void * ) &uart.transmit_char, (BaseType_t) 0);
+            xQueueSend( uart.utQueue, ( void * ) &uart.transmit_char, (TickType_t) 0);
             stringPointer++;
-            if(*stringPointer == '\0'){
-                stringPointer = string;
-                SYS_INT_SourceEnable(INT_SOURCE_USART_1_TRANSMIT);
-                return;
-            }
+           
     }
+    SYS_INT_SourceEnable(INT_SOURCE_USART_1_TRANSMIT);
 }
 
 //Depricated, use uart_send(char);
@@ -58,13 +53,18 @@ void transmitUARTchar(char data){
     return;
 }
 
+
+
 void UART_Tasks(void){
-    initializeUART();
-    //char *temp = "Hello, this is a test. My name is Jacob and I'm a baller ass bitch." + 0;
-    //transmitUARTstring(temp);
+    /*
+    uart.ptr = "Test#4 yes please: ";
+    transmitUARTstring(uart.ptr);
+    itoa(uart.itoa, 912, 10);
+    transmitUARTstring(uart.itoa);
+    */
+    uart.ready = true;
     for(;;){
         //uart_send(temp++);
-        
     }
 }
 /*******************************************************************************

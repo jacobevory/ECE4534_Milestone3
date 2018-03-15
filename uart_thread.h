@@ -3,6 +3,8 @@
 #include <stdbool.h>
 #include "system_definitions.h"
 #include "debug.h"
+#include "stdio.h"
+#include "stdlib.h"
 
 typedef struct
 {
@@ -10,16 +12,12 @@ typedef struct
     QueueHandle_t urQueue;
     char transmit_char;
     char receive_char;
-    
+    char *ptr;
+    char itoa[5];
+    volatile bool ready;
 } UART_DATA;
 
 UART_DATA uart;
-
-struct uart_message
-    {
-    char data;
-    } uMessage;
-
 
 void uart_transmit_create(void);
 void uart_send(char data);
