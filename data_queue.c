@@ -92,13 +92,13 @@ void Data_Tasks(void){
     for(;;){
         struct encoder_message inDataMessage;
         if(xQueueReceive( encoder.eQueue, ( void * ) &(inDataMessage), (TickType_t) 0)){
-            dataLeft = inDataMessage.left;
-            dataRight = inDataMessage.right;
-            char *etemp0 = "{left: \0";
+            dataLeft = inDataMessage.left*300/900;
+            dataRight = inDataMessage.right*300/900;
+            char *etemp0 = "{\"left\" : \"\0";
             char etemp1[4];
             itoa(etemp1, dataLeft, 10);
             etemp1[3] = '\0';
-            char *etemp2 = ",right: \0";
+            char *etemp2 = "\", \"right\" : \"\0";
             char etemp3[4];
             itoa(etemp3, dataRight, 10);
             etemp3[3] = '\0';
@@ -106,7 +106,7 @@ void Data_Tasks(void){
             transmitUARTstring(etemp1);
             transmitUARTstring(etemp2);
             transmitUARTstring(etemp3);
-            uart_send('}');
+            transmitUARTstring("\"}\0");
         }
     }
 }

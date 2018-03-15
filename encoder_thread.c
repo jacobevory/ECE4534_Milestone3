@@ -35,6 +35,9 @@ void initializeEncoder(void){
     DRV_TMR0_Start();
     DRV_TMR1_Start();
     DRV_TMR2_Start();
+    motorControllerInitialize();
+    setMotorR(FORWARD, 100);
+    setMotorL(FORWARD, 30);
 }
 
 void Encoder_Tasks(void){

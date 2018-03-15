@@ -1,5 +1,6 @@
 import socket
 import os
+import json
 
 def printheader():
 	os.system('cls')
@@ -29,10 +30,20 @@ while True:
 	while True:
 		data = client.recv(size)
 		if data:
-			#printheader()
-			#printdata(dataL, dataR)
-			#dataL = dataL + 1
-			#dataR = dataR + 1
-			print ('dataReceived:', data)
+			#print(data)
+			jdata = data.decode('ascii')
+			"""
+			if jdata[0:6] == "*HELLO*":
+				jdata = jdata[7:]
+				"""
+			
+			if len(jdata) < 33 and len(jdata) > 7:
+				j = json.loads(jdata)
+				dataL = j['left']
+				dataR = j['right']
+				printheader()
+				printdata(dataL, dataR)
+				#print ('dataReceived:', data)
+			
 			
 client.close()

@@ -2,6 +2,7 @@
 #include "queue.h"
 #include <stdbool.h>
 #include "stdint.h"
+#include "motor_controller.h"
 
 typedef struct
 {
