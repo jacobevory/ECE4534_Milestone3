@@ -18,7 +18,7 @@ void calculate_encoder_val(void){
     encoder.int_right = DRV_TMR2_CounterValueGet();///180; // x/180
     DRV_TMR1_CounterClear();
     DRV_TMR2_CounterClear();
-    encoder_sensor_send(encoder.int_left, encoder.int_right);
+    motor_data_send(encoder.int_left, encoder.int_right, motor.leftDir, motor.rightDir);
     }
 
 struct encoder_message* encoder_sensor_receive(void){
@@ -36,8 +36,8 @@ void initializeEncoder(void){
     DRV_TMR1_Start();
     DRV_TMR2_Start();
     motorControllerInitialize();
-    setMotorR(FORWARD, 100);
-    setMotorL(FORWARD, 30);
+    setMotorR(REVERSE, 100);
+    setMotorL(FORWARD, 100);
 }
 
 void Encoder_Tasks(void){

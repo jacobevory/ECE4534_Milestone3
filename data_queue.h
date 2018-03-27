@@ -7,15 +7,16 @@
 typedef struct
 {
     QueueHandle_t dataQueue;
+    QueueHandle_t dataReady;
+    int16_t seq;
+    TickType_t dataDelay;
 } DATA_QUEUE_DATA;
 
 DATA_QUEUE_DATA data;
 
 struct data_message
     {
-        enum message_t { Encoder, Distance, Color, Line, Motor, Uart_receive, Uart_send, Rollover_error} messageType;
-        uint32_t left;
-		uint32_t right;
+        enum message_t { Encoder, Distance, Color, Line, Motor, Rollover_error } messageType;
         uint32_t distance;
         enum color_t { red, green, blue, black } color;
         uint8_t line;
@@ -23,7 +24,6 @@ struct data_message
         uint16_t speed_right;
         bool direction_left;
         bool direction_right;
-        char * uart;
     } dataMessage;
 
 
@@ -33,8 +33,8 @@ void distance_data_send(uint32_t d);
 void color_data_send(int8_t c);
 void line_data_send(uint8_t l);
 void motor_data_send(uint32_t speed_left, uint32_t speed_right, bool direction_left, bool direction_right);
-void uart_data_send_send(char * c);
-void uart_data_receive_send(char * c);
+//void uart_data_send_send(char * c);
+//void uart_data_receive_send(char * c);
 void encoder_counter_rollover_error(void);
 struct data_message * data_receive( void );
 void initializeDataQueue(void);
